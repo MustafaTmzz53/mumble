@@ -1,0 +1,61 @@
+name: LuxMumble Windows Release
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BUILD_TYPE: Release
+  CMAKE_OPTIONS: >
+    -Dtests=OFF
+    -Dsymbols=OFF
+    -Dpackaging=OFF
+  MUMBLE_BUILD_NUMBER: 0
+
+jobs:
+  windows-release:
+    runs-on: windows-2025
+    steps:
+      - name: Check out this fork
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Set build environment
+        shell: bash
+        run: ./.github/workflows/set_environment_variables.sh windows static x86_64 cl "${GITHUB_WORKSPACE}"
+
+      - name: Restore dependency cache
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ env.MUMBLE_ENVIRONMENT_DIR }}
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+        with:
+          type: static
+          os: windows-2025
+          arch: x86_64
+
+      - name: Configure and build 64-bit Release executable
+        shell: bash
+        run: ./.github/workflows/build.sh windows static x86_64
+
+      - name: Save dependency cache
+        uses: actions/cache/save@v5
+        with:
+          path: ${{ env.MUMBLE_ENVIRONMENT_DIR }}
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+      - name: Upload LuxMumble executable
+        uses: actions/upload-artifact@v7
+        with:
+          name: LuxMumble-Windows-x64-Release
+          path: build/mumble.exe
+          if-no-files-found: error
+          compression-level: 9

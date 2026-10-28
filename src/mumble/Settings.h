@@ -405,15 +405,15 @@ struct Settings {
 
 	QString qsLanguage = {};
 
-	StyleType styleType = StyleType::Auto;
+	StyleType styleType = StyleType::Dark;
 	/// Name of the theme to use. @see Themes
 	QString themeName = QStringLiteral("Mumble");
 	/// Name of the style to use from theme. @see Themes
-	QString themeStyleName = QStringLiteral("Lite");
+	QString themeStyleName = QStringLiteral("Discord Light");
 	/// Name of the theme to use. @see Themes
 	QString themeDarkName = QStringLiteral("Mumble");
 	/// Name of the style to use from theme. @see Themes
-	QString themeDarkStyleName = QStringLiteral("Dark");
+	QString themeDarkStyleName = QStringLiteral("Discord Dark");
 
 	QByteArray qbaMainWindowGeometry     = {};
 	QByteArray qbaMainWindowState        = {};

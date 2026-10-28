@@ -49,6 +49,150 @@ std::optional< ThemeInfo::StyleInfo > Themes::getThemeStyle(const Settings &sett
 	return *styleIt;
 }
 
+static QString getPresetStylesheet(const ThemeInfo::StyleInfo &style) {
+	if (style.themeName != QLatin1String("Mumble")) {
+		return QString();
+	}
+
+	if (style.name == QLatin1String("Discord Dark")) {
+		return QStringLiteral(R"(
+ApplicationPalette {
+	qproperty-window: #313338;
+	qproperty-windowtext: #dbdee1;
+	qproperty-base: #1e1f22;
+	qproperty-alternatebase: #2b2d31;
+	qproperty-text: #dbdee1;
+	qproperty-button: #2b2d31;
+	qproperty-buttontext: #dbdee1;
+	qproperty-highlight: #5865f2;
+	qproperty-highlightedtext: #ffffff;
+	qproperty-link: #00a8fc;
+	qproperty-linkvisited: #00a8fc;
+}
+QObject { color: #dbdee1; selection-background-color: #5865f2; selection-color: #ffffff; }
+QMainWindow, QDockWidget, QDialog, QWizard *, QCalendarWidget *, #qswPages > QObject { background-color: #313338; }
+QToolBar, QMenuBar, QStatusBar { background-color: #313338; border: none; }
+QGroupBox { background-color: #2b2d31; border: 1px solid #1e1f22; border-radius: 6px; margin-top: 8px; padding: 8px; }
+QTreeView, QTreeWidget, QListView { background-color: #2b2d31; border: none; padding: 4px; outline: none; }
+QTreeView::item, QTreeWidget::item, QListView::item { border: none; border-radius: 4px; padding: 5px 8px; }
+QTreeView::item:hover, QTreeWidget::item:hover, QListView::item:hover { background-color: #35373c; }
+QTreeView::item:selected, QTreeWidget::item:selected, QListView::item:selected { background-color: #404249; color: #ffffff; }
+QPushButton, QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox {
+	background-color: #1e1f22; color: #dbdee1; border: 1px solid #1e1f22; border-radius: 4px; padding: 5px;
+}
+QPushButton:hover, QComboBox:hover { background-color: #35373c; }
+QPushButton:focus, QComboBox:focus, QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus { border-color: #5865f2; }
+QMenu { background-color: #2b2d31; border: 1px solid #1e1f22; }
+QMenu::item:selected { background-color: #404249; }
+QTabBar::tab { background-color: #2b2d31; border: none; border-radius: 4px; padding: 6px 10px; }
+QTabBar::tab:selected { background-color: #404249; }
+)");
+	}
+
+	if (style.name == QLatin1String("Discord Light")) {
+		return QStringLiteral(R"(
+ApplicationPalette {
+	qproperty-window: #f2f3f5;
+	qproperty-windowtext: #232428;
+	qproperty-base: #ffffff;
+	qproperty-alternatebase: #ebedef;
+	qproperty-text: #232428;
+	qproperty-button: #ebedef;
+	qproperty-buttontext: #232428;
+	qproperty-highlight: #5865f2;
+	qproperty-highlightedtext: #ffffff;
+	qproperty-link: #4752c4;
+	qproperty-linkvisited: #4752c4;
+}
+QObject { color: #232428; selection-background-color: #5865f2; selection-color: #ffffff; }
+QMainWindow, QDockWidget, QDialog, QWizard *, QCalendarWidget *, #qswPages > QObject { background-color: #f2f3f5; }
+QToolBar, QMenuBar, QStatusBar { background-color: #f2f3f5; border: none; }
+QGroupBox { background-color: #ffffff; border: 1px solid #d9dce1; border-radius: 6px; margin-top: 8px; padding: 8px; }
+QTreeView, QTreeWidget, QListView { background-color: #ffffff; border: 1px solid #d9dce1; padding: 4px; outline: none; }
+QTreeView::item, QTreeWidget::item, QListView::item { border: none; border-radius: 4px; padding: 5px 8px; }
+QTreeView::item:hover, QTreeWidget::item:hover, QListView::item:hover { background-color: #ebedef; }
+QTreeView::item:selected, QTreeWidget::item:selected, QListView::item:selected { background-color: #5865f2; color: #ffffff; }
+QPushButton, QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox {
+	background-color: #ffffff; color: #232428; border: 1px solid #d9dce1; border-radius: 4px; padding: 5px;
+}
+QPushButton:hover, QComboBox:hover { background-color: #ebedef; }
+QPushButton:focus, QComboBox:focus, QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus { border-color: #5865f2; }
+QMenu { background-color: #ffffff; border: 1px solid #d9dce1; }
+QMenu::item:selected { background-color: #ebedef; }
+QTabBar::tab { background-color: #ebedef; border: none; border-radius: 4px; padding: 6px 10px; }
+QTabBar::tab:selected { background-color: #ffffff; }
+)");
+	}
+
+	if (style.name == QLatin1String("Midnight AMOLED")) {
+		return QStringLiteral(R"(
+ApplicationPalette {
+	qproperty-window: #000000;
+	qproperty-windowtext: #e6e6e6;
+	qproperty-base: #000000;
+	qproperty-alternatebase: #0a0a0a;
+	qproperty-text: #e6e6e6;
+	qproperty-button: #111111;
+	qproperty-buttontext: #e6e6e6;
+	qproperty-highlight: #5865f2;
+	qproperty-highlightedtext: #ffffff;
+}
+QObject { color: #e6e6e6; selection-background-color: #5865f2; selection-color: #ffffff; }
+QMainWindow, QDockWidget, QDialog, QWizard *, QCalendarWidget *, #qswPages > QObject { background-color: #000000; }
+QToolBar, QMenuBar, QStatusBar { background-color: #000000; border: none; }
+QGroupBox { background-color: #080808; border: 1px solid #1c1c1c; border-radius: 6px; margin-top: 8px; padding: 8px; }
+QTreeView, QTreeWidget, QListView { background-color: #050505; border: 1px solid #151515; padding: 4px; outline: none; }
+QTreeView::item, QTreeWidget::item, QListView::item { border: none; border-radius: 4px; padding: 5px 8px; }
+QTreeView::item:hover, QTreeWidget::item:hover, QListView::item:hover { background-color: #161616; }
+QTreeView::item:selected, QTreeWidget::item:selected, QListView::item:selected { background-color: #252525; color: #ffffff; }
+QPushButton, QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox {
+	background-color: #0a0a0a; color: #e6e6e6; border: 1px solid #202020; border-radius: 4px; padding: 5px;
+}
+QPushButton:hover, QComboBox:hover { background-color: #1b1b1b; }
+QPushButton:focus, QComboBox:focus, QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus { border-color: #5865f2; }
+QMenu { background-color: #080808; border: 1px solid #202020; }
+QMenu::item:selected { background-color: #252525; }
+QTabBar::tab { background-color: #0a0a0a; border: none; border-radius: 4px; padding: 6px 10px; }
+QTabBar::tab:selected { background-color: #202020; }
+)");
+	}
+
+	if (style.name == QLatin1String("Neomorphic")) {
+		return QStringLiteral(R"(
+ApplicationPalette {
+	qproperty-window: #e0e5ec;
+	qproperty-windowtext: #394150;
+	qproperty-base: #e0e5ec;
+	qproperty-alternatebase: #e7ebf1;
+	qproperty-text: #394150;
+	qproperty-button: #e0e5ec;
+	qproperty-buttontext: #394150;
+	qproperty-highlight: #667eea;
+	qproperty-highlightedtext: #ffffff;
+}
+QObject { color: #394150; selection-background-color: #667eea; selection-color: #ffffff; }
+QMainWindow, QDockWidget, QDialog, QWizard *, QCalendarWidget *, #qswPages > QObject { background-color: #e0e5ec; }
+QToolBar, QMenuBar, QStatusBar { background-color: #e0e5ec; border: none; }
+QGroupBox { background-color: #e0e5ec; border: 1px solid #cbd2dc; border-radius: 10px; margin-top: 8px; padding: 8px; }
+QTreeView, QTreeWidget, QListView { background-color: #e0e5ec; border: 1px solid #cbd2dc; border-radius: 8px; padding: 4px; outline: none; }
+QTreeView::item, QTreeWidget::item, QListView::item { border: none; border-radius: 6px; padding: 5px 8px; }
+QTreeView::item:hover, QTreeWidget::item:hover, QListView::item:hover { background-color: #d3dae5; }
+QTreeView::item:selected, QTreeWidget::item:selected, QListView::item:selected { background-color: #667eea; color: #ffffff; }
+QPushButton, QComboBox, QLineEdit, QSpinBox, QDoubleSpinBox {
+	background-color: #e0e5ec; color: #394150; border: 1px solid #cbd2dc; border-radius: 8px; padding: 5px;
+}
+QPushButton:hover, QComboBox:hover { background-color: #d3dae5; }
+QPushButton:focus, QComboBox:focus, QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus { border-color: #667eea; }
+QMenu { background-color: #e0e5ec; border: 1px solid #cbd2dc; border-radius: 8px; }
+QMenu::item:selected { background-color: #d3dae5; }
+QTabBar::tab { background-color: #d3dae5; border: none; border-radius: 6px; padding: 6px 10px; }
+QTabBar::tab:selected { background-color: #e0e5ec; }
+)");
+	}
+
+	return QString();
+}
+
 std::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
 	switch (settings.styleType) {
 		case StyleType::Light:
@@ -133,6 +277,7 @@ bool Themes::applyConfigured() {
 	skinPaths << QLatin1String(":/themes/Default"); // Some skins might want to fall-back on our built-in resources
 
 	QString themeQss = QString::fromUtf8(file.readAll());
+	themeQss += getPresetStylesheet(*style);
 	setTheme(themeQss, skinPaths);
 	return true;
 }
