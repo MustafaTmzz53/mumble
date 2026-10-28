@@ -1079,10 +1079,10 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Dark theme to use to style the user interface</string>
+         <string>Choose a dark LuxMumble appearance preset or an installed theme</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
+         <string>&lt;b&gt;Choose the appearance used in Dark mode.&lt;/b&gt;&lt;br /&gt;LuxMumble includes Discord Dark, Midnight AMOLED, and Neomorphic presets. Installed themes are also listed here.</string>
         </property>
         <property name="accessibleName">
          <string>Mumble theme</string>
@@ -1108,10 +1108,10 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>Light theme to use to style the user interface</string>
+         <string>Choose a light LuxMumble appearance preset or an installed theme</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
+         <string>&lt;b&gt;Choose the appearance used in Light mode.&lt;/b&gt;&lt;br /&gt;LuxMumble includes Discord Light and Neomorphic presets. Installed themes are also listed here.</string>
         </property>
         <property name="accessibleName">
          <string>Mumble theme</string>
@@ -1134,7 +1134,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="qliThemeStyle">
         <property name="text">
-         <string>Theme</string>
+         <string>Appearance</string>
         </property>
         <property name="buddy">
          <cstring>qgbStylePicker</cstring>
@@ -1151,7 +1151,7 @@
       <item row="5" column="0">
        <widget class="QLabel" name="qliDarkTheme">
         <property name="text">
-         <string>Dark Theme</string>
+         <string>Dark preset</string>
         </property>
         <property name="buddy">
          <cstring>qcbDarkTheme</cstring>
@@ -1255,7 +1255,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="qliLightTheme">
         <property name="text">
-         <string>Light Theme</string>
+         <string>Light preset</string>
         </property>
         <property name="buddy">
          <cstring>qcbLightTheme</cstring>
